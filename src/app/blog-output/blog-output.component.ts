@@ -12,3 +12,10 @@ export class BlogOutputComponent implements OnInit {
 
   ngOnInit(): void {}
 }
+export class BlogOutputComponent implements OnInit {
+  blogContent: string | undefined;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+}
