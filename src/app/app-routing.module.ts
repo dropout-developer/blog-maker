@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BlogInputComponent } from './blog-input/blog-input.component';
-import { BlogOutputComponent } from './blog-output/blog-output.component';
+import { BlogInputComponent } from './components/blog-input/blog-input.component';
+import { BlogOutputComponent } from './components/blog-output/blog-output.component';
 
 const routes: Routes = [
   { path: 'create-blog', component: BlogInputComponent },
