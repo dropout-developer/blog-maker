@@ -9,4 +9,8 @@ export class BlogInputComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleSubmit(formData: any): void {
+    console.log(formData);
+  }
 }
