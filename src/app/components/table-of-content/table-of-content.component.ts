@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-of-content.component.css'],
 })
 export class TableOfContentComponent implements OnInit {
+  tableOfContents: string[] = [];
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  updateTableOfContents(newTableOfContents: string[]): void {
+    this.tableOfContents = newTableOfContents;
+  }
 }
