@@ -6,7 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog-output.component.css'],
 })
 export class BlogOutputComponent implements OnInit {
+  title: string = '';
+  content: string = '';
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  updateBlog(blog: { title: string; content: string }): void {
+    this.title = blog.title;
+    this.content = blog.content;
+  }
 }
