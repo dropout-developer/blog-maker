@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-blog-input',
-  templateUrl: './blog-input.component.html',
-  styleUrls: ['./blog-input.component.scss'],
+  template: './blog-input.component.html',
+  styleUrls: [],
 })
 export class BlogInputComponent {
   keyword = '';

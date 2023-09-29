@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-blog-output',
-  templateUrl: './blog-output.component.html',
-  styleUrls: ['./blog-output.component.scss'],
+  template: './blog-output.component.html',
+  styleUrls: [],
 })
 export class BlogOutputComponent implements OnInit {
-  blogContent: string;
+  blogContent: string | undefined;
 
   constructor() {}
 
