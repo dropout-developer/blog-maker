@@ -5,27 +5,26 @@ Create captivating and SEO-optimized blog posts with ease using Blog Maker Pro, 
 ## 🚀 Quick Start
 
 ### Clone the Repository
-\```bash
+\
 git clone https://github.com/dropout-developer/blog-maker
 cd https://github.com/dropout-developer/blog-maker
-\```
+\
 
 ### Install Dependencies
-\```bash
+\
 npm install
-\```
+\
 
 ### Set Up Environment Variables
-Create a `.env` file in the root directory.
-Add your OpenAI API key:
-\```makefile
+Add your OpenAI API key in the env file:
+\
 OPEN_AI_API_KEY=your_openai_api_key
-\```
+\
 
 ### Run the Application
-\```bash
+\
 ng serve
-\```
+\
 Open your browser and navigate to http://localhost:4200/ to access the app.
 
 ## 🛠 Features
