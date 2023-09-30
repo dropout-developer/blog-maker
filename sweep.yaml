@@ -12,7 +12,7 @@ gha_enabled: True
 # Example:
 #
 # description: sweepai/sweep is a python project. The main api endpoints are in sweepai/api.py. Write code that adheres to PEP8.
-description: ''
+description: 'Blog Maker Pro is an Angular application that leverages the OpenAI API to generate SEO-optimized blog posts from a single keyword. The main component, blog maker, serves as the homepage. The app tagline is: Create captivating and SEO-optimized blog posts with ease using Blog Maker Pro, powered by Angular and integrated with OpenAI '
 
 # This sets whether to create pull requests as drafts. If this is set to True, then all pull requests will be created as drafts and GitHub Actions will not be triggered.
 draft: False
@@ -27,7 +27,7 @@ blocked_dirs: [".github/"]
 # docs:
 #   - Modal: https://modal.com/docs/reference
 #   - PyGitHub: https://pygithub.readthedocs.io/en/latest/
-docs: []
+docs: ['https://angular.io/docs','https://getbootstrap.com/docs/5.1/getting-started/introduction/','https://beta.openai.com/docs/']
 
 # Sandbox executes commands in a sandboxed environment to validate code changes after every edit to guarantee pristine code. For more details, see the [Sandbox](./sandbox) page.
 sandbox:
