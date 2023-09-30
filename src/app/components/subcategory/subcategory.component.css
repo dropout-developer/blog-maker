@@ -1,0 +1,16 @@
+/* Reset CSS for SubcategoryComponent */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Add basic styles for SubcategoryComponent */
+.subcategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
