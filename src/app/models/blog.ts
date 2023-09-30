@@ -1,13 +1,15 @@
-import { Subcategory } from './subcategory';
+// blog.ts
 
-export class Blog {
+export interface BlogData {
   title: string;
-  content: string;
-  subcategories: Subcategory[];
+  content: string[];
+  subheadings: string[];
+  conclusion: string;
+  qna: QnA[];
+  resources: string[];
+}
 
-  constructor(title: string, content: string, subcategories: Subcategory[]) {
-    this.title = title;
-    this.content = content;
-    this.subcategories = subcategories;
-  }
+export interface QnA {
+  question: string;
+  answer: string;
 }

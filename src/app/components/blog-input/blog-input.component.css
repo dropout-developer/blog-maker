@@ -1,4 +1,4 @@
-/* Reset CSS for BlogInputComponent */
+Reset CSS for BlogInputComponent
 * {
   margin: 0;
   padding: 0;
@@ -19,6 +19,20 @@ h1, h2 {
   color: #333;
   margin-bottom: 10px;
 }
+
+.error-text {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog-generator {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+}
+
 
 h1 {
   font-size: 2em;
@@ -87,3 +101,32 @@ ul {
 li {
   margin-bottom: 10px;
 }
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #007BFF;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.github-link img {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
