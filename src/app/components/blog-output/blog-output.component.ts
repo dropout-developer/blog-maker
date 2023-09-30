@@ -14,7 +14,9 @@ export class BlogOutputComponent implements OnInit {
   ngOnInit(): void {}
 
   updateBlog(blog: { title: string; content: string }): void {
-    this.title = blog.title;
-    this.content = blog.content;
+    this.http.get<any>('api/blog/' + blog.id).subscribe((response) => {
+      this.title = response.title;
+      this.content = response.content;
+    });
   }
 }
