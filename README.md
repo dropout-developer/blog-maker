@@ -1,4 +1,4 @@
-# Blog Maker Pro
+# Blog Maker Pro - Powered By Open AI API
 
 Create captivating and SEO-optimized blog posts with ease using Blog Maker Pro, powered by Angular and integrated with OpenAI.
 
