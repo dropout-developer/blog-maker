@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BlogInputComponent } from './components/blog-input/blog-input.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'create-blog', component: BlogInputComponent },
+  { path: '', redirectTo: '/create-blog', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
