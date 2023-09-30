@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,21 +8,30 @@ import { Observable } from 'rxjs';
 })
 export class OpenAIService {
   private readonly API_URL =
-    'https://api.openai.com/v1/engines/davinci-codex/completions';
+    'https://api.openai.com/v1/chat/completions';
 
   constructor(private http: HttpClient) {}
 
-  getBlogContent(keyword: string, description: string): Observable<any> {
-    const data = {
-      prompt: `${keyword}\n${description}`,
-      max_tokens: 500,
+  generateContent(prompt: string) {
+    const headers = {
+      'Authorization': `Bearer ${environment.OPEN_AI_API_KEY}`,
+      'Content-Type': 'application/json'
     };
-
-    return this.http.post(this.API_URL, data, {
-      headers: {
-        Authorization: `Bearer ${process.env.OPEN_AI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const body = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant."
+        },
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
+      max_tokens: 100,
+    };
+    return this.http.post(this.API_URL, body, { headers: headers });
   }
+
 }

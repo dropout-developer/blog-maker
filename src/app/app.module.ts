@@ -8,6 +8,8 @@ import { BlogOutputComponent } from './components/blog-output/blog-output.compon
 import { TableOfContentComponent } from './components/table-of-content/table-of-content.component';
 import { SubcategoryComponent } from './components/subcategory/subcategory.component';
 import { OpenAIService } from './services/open-ai.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { OpenAIService } from './services/open-ai.service';
     TableOfContentComponent,
     SubcategoryComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule,ReactiveFormsModule,HttpClientModule,
+    FormsModule],
   providers: [OpenAIService],
   bootstrap: [AppComponent],
 })
