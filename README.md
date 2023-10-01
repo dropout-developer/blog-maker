@@ -1,5 +1,8 @@
 # Blog Maker Pro - Powered By Open AI API
 
+Project by - Dropout Developer - https://dropoutdeveloper.com/
+Discover free learning paths for developers - https://app.dropoutdeveloper.com/
+
 Create captivating and SEO-optimized blog posts with ease using Blog Maker Pro, powered by Angular and integrated with OpenAI.
 
 Demo -
@@ -41,7 +44,7 @@ Open your browser and navigate to http://localhost:4200/ to access the app.
 - Interactive Display: View generated content with a table of contents and hyperlinks.
 
 ## 📖 Usage
-1. Go to `/create-blog`.
+1. Go to `http://localhost:4200/`.
 2. Enter your desired keyword and description.
 3. Press the "Generate Blog" button.
 4. Enjoy your automatically generated blog content!
