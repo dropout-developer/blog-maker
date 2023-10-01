@@ -11,9 +11,9 @@ export class TokenAllocationService {
     resources: number;
     title:number;
   } = {
-    paragraph: 80,
-    resources: 160,
-    title: 40
+    paragraph: 110,
+    resources: 190,
+    title: 30
   };
 
   // Calculate tokens based on the base multiplier
