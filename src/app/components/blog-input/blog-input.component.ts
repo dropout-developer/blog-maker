@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { forkJoin, throwError } from 'rxjs';
-import { catchError, concatMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { BlogData, QnA } from 'src/app/models/blog';
 import { OpenAIService } from 'src/app/services/open-ai.service';
 
@@ -20,15 +20,16 @@ export class BlogInputComponent implements OnInit {
     qna: [],
     resources: [],
   };
-
+  delayCount = 600
   basePrompt = `
   Generate engaging and relevant content based on the given progress and request. Do not include any additional information, commentary, or introductory phrases in the response.
   `;
-
+  customApiKey = false;
+  blogCount: number = 0;
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  power = 0.8;
+  power = 1.5;
 
   constructor(
     private openaiService: OpenAIService,
@@ -37,9 +38,10 @@ export class BlogInputComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.blogCount = Number(localStorage.getItem('blogCount')) || 0;
     this.blogForm = this.formBuilder.group({
       keyword: ['', Validators.required],
-      apiKey: ['', Validators.required],
+      apiKey: [''],
     });
 
     // Subscribe to form value changes
@@ -55,6 +57,13 @@ export class BlogInputComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.blogCount++;
+    localStorage.setItem('blogCount', this.blogCount.toString());
+    if (this.blogCount > 3) {
+      this.errorMessage = 'Blog limit reached. Please email the admin for more access.';
+      this.cdRef.detectChanges();
+      return;
+    }
     if (this.blogForm?.invalid) {
         this.errorMessage = 'All fields are required!';
         this.cdRef.detectChanges();
@@ -66,9 +75,14 @@ export class BlogInputComponent implements OnInit {
     const keyword = this.blogForm?.value.keyword as string;
     try {
       await this.generateTitle(keyword);
+      await this.delay(this.delayCount);
+      await this.delay(this.delayCount);
       await this.generateOutlineAndContent(keyword);
+      await this.delay(this.delayCount);
       await this.generateConclusion(keyword);
+      await this.delay(this.delayCount);
       await this.generateQnA(keyword);
+      await this.delay(this.delayCount);
       await this.generateResources(keyword);
     } catch (error: any) {
       this.errorMessage = 'An error occurred while generating the blog content: ' + error.message;
@@ -118,40 +132,38 @@ export class BlogInputComponent implements OnInit {
   }
 
 
-  generateOutlineAndContent(keyword: string) {
+  async generateOutlineAndContent(keyword: string) {
     const apiKey = this.blogForm?.value.apiKey as string;
     const currentProgress = `Keyword: "${keyword}", Title: "${this.blogData.title}".`;
-    const specificRequest = `Based on the title "${this.blogData.title}", provide a logical and engaging outline for a blog post about ${keyword}, focusing on its relevance in today's digital landscape. Include main points and sub-points, excluding the title and introduction. Provide specific examples where necessary.`;
+    const specificRequest = `Based on the title "${this.blogData.title}", provide a logical and engaging outline with 6 headings only including a heading for introduction of topic too ( skip subheadings for now and do not include in response, we need only 5 headings and no subheadings) for a blog post about ${keyword},
+    focusing on its relevance in today's digital landscape (Don't start with in todays digital age, start naturally like example - moving into next topic, next, let's talk about etc). `
+    // Include main points and sub-points, excluding the title and introduction. Provide specific examples where necessary.
     const fullPrompt = `${this.basePrompt} ${currentProgress} ${specificRequest}`;
 
-    this.openaiService
-    .generateContent(apiKey, fullPrompt, 'paragraph', this.power)
-    .pipe(
-      catchError((error) => {
-        console.error('Error generating outline:', error);
-        return [];
-      }),
-      concatMap((outlineResponse: any) => {
-        this.blogData.subheadings = outlineResponse.choices[0].message.content
-          .split('\n')
-          .map((item: string) => item.trim());
+    try {
+      const outlineResponse: any = await this.openaiService
+      .generateContent(apiKey, fullPrompt, 'paragraph', this.power)
+      .toPromise();
 
-        const contentRequests = this.blogData.subheadings.map((item) =>
-          this.generateContentRequest(apiKey, item)
-        );
+      this.blogData.subheadings = outlineResponse.choices[0].message.content
+        .split('\n')
+        .map((item: string) => item.trim());
 
-        return forkJoin(contentRequests);
-      })
-    )
-    .subscribe(async (contentResponses: any[]) => {
-      // Use Promise.all to wait for all promises to resolve
-      this.blogData.content = await Promise.all(
-        contentResponses.map((response) =>
-          this.handleIncompleteResponse(response.choices[0].message.content.trim())
-        )
-      );
-    });
+      for (let item of this.blogData.subheadings) {
+        await this.delay(this.delayCount);  // Delay of this.delayCount milliseconds to ensure a rate of 1-3 requests per second
+        const contentResponse: any = await this.generateContentRequest(apiKey, item).toPromise();
+        const content = this.handleIncompleteResponse(contentResponse.choices[0].message.content.trim());
+        this.blogData.content.push(content);
+      }
+    } catch (error) {
+      console.error('Error generating outline:', error);
+    }
   }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
 
   generateContentRequest(apiKey: string, item: string) {
     let prompt = `Elaborate on the subheading "${item}" for the blog post about ${this.blogForm?.value.keyword}, considering the title "${this.blogData.title}". Provide a detailed and relevant paragraph that directly addresses the subheading. Do not include a title for this section.`;
