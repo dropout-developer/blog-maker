@@ -2,6 +2,10 @@
 
 Create captivating and SEO-optimized blog posts with ease using Blog Maker Pro, powered by Angular and integrated with OpenAI.
 
+Demo -
+
+https://github.com/dropout-developer/blog-maker/assets/123236394/4ee801b1-4ba0-4710-a73f-ee5c906cbd52
+
 ## 🚀 Quick Start
 
 ### Clone the Repository
