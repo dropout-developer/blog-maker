@@ -1,29 +1,45 @@
 <!-- Header Section -->
-<header class="app-header navbar navbar-expand-lg navbar-dark">
-  <div class="container">
+<header class="app-header">
+  <div class="branding">
     <a class="navbar-brand" href="#">
-      <!-- <img src="assets/logo.png" alt="Blog Maker Pro Logo" class="logo"> -->
       Blog Maker Pro
     </a>
+  </div>
+  <div class="github">
     <a class="github-button" href="https://github.com/dropout-developer/blog-maker" data-size="large"
       aria-label="Star dropout-developer/blog-maker on GitHub">
-      <i class="fab fa-github"></i> Star
+      Star <i class="fab fa-github"></i>
     </a>
   </div>
+  <!-- </div> -->
 </header>
 
+
 <div class="container mt-5">
-  <div class="blog-generator card shadow">
+  <div class="intro">
+    <h1>Welcome to Blog Maker Pro!</h1>
+    <p>Your go-to solution for crafting engaging blog content effortlessly. Just fill in the form below and let us do
+      the magic!</p>
+  </div>
+
+
+  <div class="blog-generator card">
     <div class="card-body">
-      <h2 class="card-title">Blog Generator</h2>
-      <form *ngIf="blogForm" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="apiKey">API Key:</label> <!-- New label for API key -->
-          <input type="text" id="apiKey" formControlName="apiKey" class="form-control" placeholder="Enter your API key">
-          <!-- New input field for API key -->
-          <small *ngIf="blogForm.get('apiKey')?.invalid && blogForm.get('apiKey')?.touched"
-            class="error-text text-danger">API Key is required!</small> <!-- New error message for API key -->
+      <h2 class="card-title">
+        Blog Generator
+        <div class="form-group inline-checkbox">
+          <input type="checkbox" id="customApiKey" [(ngModel)]="customApiKey">
+          <label for="customApiKey">Use own API key</label>
         </div>
+      </h2>
+      <form *ngIf="blogForm" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" *ngIf="customApiKey">
+          <label for="apiKey">API Key:</label>
+          <input type="password" id="apiKey" class="form-control" placeholder="Enter your API key">
+          <small *ngIf="blogForm.get('apiKey')?.invalid && blogForm.get('apiKey')?.touched"
+            class="error-text text-danger">API Key is required!</small>
+        </div>
+
         <div class="form-group">
           <label for="keyword">Focus Keyword:</label>
           <input type="text" id="keyword" formControlName="keyword" class="form-control" placeholder="Enter a keyword">
@@ -44,8 +60,8 @@
       </div>
     </div>
   </div>
-  <!-- Output Section -->
-  <div *ngIf="blogData.resources && blogData.resources.length" class="blog-output card shadow mt-4">
+
+  <div *ngIf="blogData.resources && blogData.resources.length" class="blog-output card mt-4">
     <div class="card-body">
       <div class="actions mb-4 d-flex justify-content-between">
         <button (click)="exportBlog()" class="btn btn-success mr-2"><i class="fas fa-download"></i> Export Blog</button>
@@ -79,3 +95,10 @@
     </div>
   </div>
 </div>
+
+
+<footer class="footer">
+  <div class="container">
+    Made by <a href="https://dropoutdeveloper.com" target="_blank">dropoutdeveloper.com</a>
+  </div>
+</footer>

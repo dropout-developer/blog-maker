@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlogInputComponent } from './components/blog-input/blog-input.component';
 
 const routes: Routes = [
-  { path: 'create-blog', component: BlogInputComponent },
-  { path: '', redirectTo: '/create-blog', pathMatch: 'full' },
+  { path: '', component: BlogInputComponent },
 ];
 
 @NgModule({
